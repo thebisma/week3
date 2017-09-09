@@ -10,6 +10,7 @@ import UIKit
 
 class RunViewController: UIViewController {
 
+    
     @IBOutlet weak var nextLabel: UILabel!
     var ayam: String!
     var banteng: String!

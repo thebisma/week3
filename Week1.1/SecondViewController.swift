@@ -8,12 +8,17 @@
 
 import UIKit
 
-var penampung: [String] = []
+protocol SecondVCDelegate: class {
+    func SecondViewControllerDidFinish (_ SecondVC: SecondViewController, didUpdateTodoes todoes: Todoes)
+}
+
+//var penampung: [String] = []
 
 
 class SecondViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var inputTextField: UITextField!
-    
+    var penampung: [String] = []
+    var delegate: SecondVCDelegate?
     var global: String!
     
     override func viewDidLoad() {
@@ -21,12 +26,16 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        let name = inputTextField.text
+//        let name = inputTextField.text
         
-        if name != ""{
-            temp.append(name!)
-        }
-        //self.dismiss(animated: true, completion: nil)
+//        if name != ""{
+//            temp.append(name!)
+//        }
+        
+//      self.dismiss(animated: true, completion: nil)
+        let result = getCurrentDateString()
+        let tempTodo = Todoes(todo: (inputTextField.text!), dateandtime: result)
+        self.delegate?.SecondViewControllerDidFinish(self, didUpdateTodoes: tempTodo)
         ayam.isHidden = true
         
         let dateString = getCurrentDateString()

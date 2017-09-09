@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A266EB11F63AFA100C6F86C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A266EB01F63AFA100C6F86C /* Model.swift */; };
 		6A4A1E6E1F5A4E6C0012388B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A1E6D1F5A4E6C0012388B /* AppDelegate.swift */; };
 		6A4A1E701F5A4E6C0012388B /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A1E6F1F5A4E6C0012388B /* FirstViewController.swift */; };
 		6A4A1E721F5A4E6C0012388B /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A1E711F5A4E6C0012388B /* SecondViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A266EB01F63AFA100C6F86C /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		6A4A1E6A1F5A4E6C0012388B /* Week1.1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Week1.1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A4A1E6D1F5A4E6C0012388B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A4A1E6F1F5A4E6C0012388B /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				6A4A1E6F1F5A4E6C0012388B /* FirstViewController.swift */,
 				6A4A1E711F5A4E6C0012388B /* SecondViewController.swift */,
 				6A4A1E731F5A4E6C0012388B /* Main.storyboard */,
+				6A266EB01F63AFA100C6F86C /* Model.swift */,
 				6A4A1E831F5A71910012388B /* nicoViewCell.swift */,
 				6A4A1E811F5A54150012388B /* RunViewController.swift */,
 				6A4A1E761F5A4E6C0012388B /* Assets.xcassets */,
@@ -148,6 +151,7 @@
 				6A4A1E721F5A4E6C0012388B /* SecondViewController.swift in Sources */,
 				6A4A1E6E1F5A4E6C0012388B /* AppDelegate.swift in Sources */,
 				6A4A1E821F5A54150012388B /* RunViewController.swift in Sources */,
+				6A266EB11F63AFA100C6F86C /* Model.swift in Sources */,
 				6A4A1E701F5A4E6C0012388B /* FirstViewController.swift in Sources */,
 				6A4A1E841F5A71910012388B /* nicoViewCell.swift in Sources */,
 			);
@@ -311,6 +315,7 @@
 				6A4A1E801F5A4E6C0012388B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

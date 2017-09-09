@@ -8,13 +8,14 @@
 
 import UIKit
 
-var temp: [String] = []
+//var temp: [String] = []
 var ayam: UILabel!
 
 class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var labelToDo: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    var temp: [Todoes] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,10 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.dataSource = self
         
+        let secondNavController = tabBarController?.viewControllers?[1] as! UINavigationController
+        let secondViewController = secondNavController.topViewController as? SecondViewController
+        secondViewController?.delegate = self
+        
         self.tableView.reloadData()
     }
 
@@ -35,10 +40,10 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! nicoViewCell
-        let name = temp[indexPath.row]
+        let name = temp[indexPath.row].todo
         
         cell.textLabel?.text = name
-        cell.dateLabel.text = penampung[indexPath.row]
+        cell.dateLabel.text = temp[indexPath.row].dateandtime
         
         return cell
     }
@@ -51,10 +56,19 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         var indexPath = sender as! IndexPath
         if segue.identifier == "segue"{
             let vc: RunViewController = segue.destination as! RunViewController
-            vc.ayam = temp[indexPath.row]
-            vc.banteng = penampung[indexPath.row]
-            
+            vc.ayam = temp[indexPath.row].todo
+            vc.banteng = temp[indexPath.row].dateandtime
         }
+    }
+    
+    func updateData(todoe: Todoes){
+        temp.append(todoe)
+    }
+}
+
+extension FirstViewController: SecondVCDelegate{
+    func SecondViewControllerDidFinish(_ SecondVC: SecondViewController, didUpdateTodoes todoes: Todoes) {
+        updateData(todoe: todoes)
     }
 }
 
