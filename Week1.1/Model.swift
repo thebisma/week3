@@ -7,17 +7,18 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Todoes{
-    var todo = ""
-    var dateandtime = ""
+class Todoes: Object{
+    dynamic var todo = ""
+    dynamic var dateandtime = ""
     
-    init() {
-        
-    }
-    
-    init(todo: String, dateandtime: String) {
-        self.todo = todo
-        self.dateandtime = dateandtime
-    }
+//    init() {
+//        
+//    }
+//    
+//    init(todo: String, dateandtime: String) {
+//        self.todo = todo
+//        self.dateandtime = dateandtime
+//    }
 }

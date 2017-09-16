@@ -33,13 +33,31 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
 //        }
         
 //      self.dismiss(animated: true, completion: nil)
-        let result = getCurrentDateString()
-        let tempTodo = Todoes(todo: (inputTextField.text!), dateandtime: result)
-        self.delegate?.SecondViewControllerDidFinish(self, didUpdateTodoes: tempTodo)
-        ayam.isHidden = true
         
-        let dateString = getCurrentDateString()
-        penampung.append(dateString)
+        //MARK: Ini week 2
+//        let result = getCurrentDateString()
+//        let tempTodo = Todoes(todo: (inputTextField.text!), dateandtime: result)
+//        self.delegate?.SecondViewControllerDidFinish(self, didUpdateTodoes: tempTodo)
+//        ayam.isHidden = true
+//        
+//        let dateString = getCurrentDateString()
+//        penampung.append(dateString)
+        
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMM yyyy - HH:mm"
+        
+        let result = formatter.string(from: date)
+        let tempTodo = Todoes() //Todoes(todo: (addTodoTtextField.text!), dateandtime: result)
+        tempTodo.todo = (inputTextField.text!)
+        tempTodo.dateandtime = result
+        
+        self.delegate?.SecondViewControllerDidFinish(self, didUpdateTodoes: tempTodo)
+        
+        inputTextField.text = ""
+        self.view.endEditing(true)
+        tabBarController!.selectedIndex = 0
+        
         
     }
     
