@@ -41,7 +41,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
             DispatchQueue.main.async {
                 let configuration = Realm.Configuration(
-                    syncConfiguration: SyncConfiguration(user: user, realmURL: URL(string: "http://172.17.1.1:9080/users")!)
+                    syncConfiguration: SyncConfiguration(user: user, realmURL: URL(string: "realm://172.17.1.1:9080/~/realmtasks")!)
                 )
                 self.realm = try! Realm(configuration: configuration)
                 func updateList() {
