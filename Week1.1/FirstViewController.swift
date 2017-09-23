@@ -11,6 +11,9 @@ import RealmSwift
 
 //var temp: [String] = []
 var ayam: UILabel!
+//var todoArray = List<Todoes>()
+
+
 
 class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -19,7 +22,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //var temp: [Todoes] = []
     var temp = List<Todoes>()
     var realm: Realm!
-    
+    var notificationToken: NotificationToken!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -28,14 +31,49 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func loadDataRealm(){
-        self.realm = try! Realm()
-        let lists = realm.objects(Todoes.self)
-        if self.temp.realm == nil, lists.count > 0{
-            for list in lists{
-                self.temp.append(list)
+        let username = "qwe"
+        let password = "qwe"
+        
+        SyncUser.logIn(with: .usernamePassword(username: username, password: password, register: false), server: URL(string: "http://172.17.1.1:9080/")!) {user,error in
+            guard let user = user else {
+            fatalError(String(describing:error))
+            }
+        
+            DispatchQueue.main.async {
+                let configuration = Realm.Configuration(
+                    syncConfiguration: SyncConfiguration(user: user, realmURL: URL(string: "http://172.17.1.1:9080/users")!)
+                )
+                self.realm = try! Realm(configuration: configuration)
+                func updateList() {
+                
+                    if self.temp.realm == nil, let list = self.realm.objects(User.self).first{
+                            self.temp = list.todos
+                            self.prepareTable()
+                    }
+                    self.tableView.reloadData()
+                
+                
+                }
+                
+            updateList()
+                self.notificationToken = self.realm.addNotificationBlock { _ in
+                    updateList()
+                    print(self.notificationToken)
+                }
+                
+                
+                
             }
         }
     }
+    
+        
+        //.realm = try! Realm()
+        //let lists = realm.objects(Todoes.self)
+        //if self.temp.realm == nil, lists.count > 0{
+            //for list in lists{
+                //self.temp.append(list)
+     
     
     func prepareTable(){
         if temp.count < 1{
@@ -66,7 +104,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! nicoViewCell
-        let reuseableCell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! nicoViewCell
+        let reuseableCell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! TableViewCell
 //        let name = temp[indexPath.row].todo
         let todosRealm = temp[indexPath.row]
         
@@ -89,7 +127,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 let list = self.temp[indexPath.row]
                 self.realm.delete(list)
             }
-            self.temp.remove(at: indexPath.row)
             tableView.reloadData()
             self.prepareTable()
         }
@@ -111,19 +148,40 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func updateData(todoe: Todoes){
         //temp.append(todoe)
-        let realm = try! Realm()
-        
-        try! realm.write {
+        try! temp.realm?.write {
             temp.insert(todoe, at: temp.count)
-            realm.add(todoe)
         }
-        tableView.reloadData()
     }
+
+    deinit {
+    notificationToken.stop()
+    }
+    
+    
+    
 }
+
+
+
 
 extension FirstViewController: SecondVCDelegate{
     func SecondViewControllerDidFinish(_ SecondVC: SecondViewController, didUpdateTodoes todoes: Todoes) {
         updateData(todoe: todoes)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
